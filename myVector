@@ -1,0 +1,95 @@
+template <typename T>
+
+class Vec {
+	class array {
+	public:
+		T value;
+		array* next;
+	};
+	array *beginV;
+	array *endV;
+public:
+	Vec() {
+		beginV = NULL;
+		endV = NULL;
+	}
+	void pushFront(T val) {
+		if (beginV == NULL) {
+			beginV = new array;
+			beginV->value = val;
+			endV = beginV;
+		}
+		else {
+			array *temp;
+			temp = new array;
+			temp->value = val;
+			temp->next = beginV;
+			beginV = temp;
+		}
+	}
+
+	void pushBack(T val){
+		if (beginV == NULL) {
+			beginV = new array;
+			beginV->value = val;
+			endV = beginV;
+		}
+		else {
+			array *temp;
+			temp = new array;
+			temp->value = val;
+			temp->next = NULL;
+			endV->next = temp;
+			endV = temp;
+		}
+	}
+
+	int size() {
+		array var;
+		int counter = 0;
+		var = beginV;
+		while (var != NULL) {
+			counter++;
+			var = var->next;
+		}
+		return counter;
+	}
+
+	void popFront() {
+		if (beginV != NULL) {
+			if (beginV->next != NULL)
+				beginV = beginV->next;
+			else
+				beginV = NULL;
+		}
+	}
+
+	void printList() {
+		array *p;
+		p = beginV;
+		while (p != NULL) {
+			std::cout << p->value << " ";
+			p = p->next;
+		}
+	}
+
+	T getFirst() {
+		return beginV->value;
+	}
+
+	T getLast() {
+		return endV->value;
+	}
+
+	void popBack(){
+		if (beginV != NULL) {
+			array* p;
+			p = beginV;
+			while (p->next->next != NULL) {
+				p = p->next;
+			}
+			endV = p;
+			endV->next = NULL;
+		}
+	}
+};
